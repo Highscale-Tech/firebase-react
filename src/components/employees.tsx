@@ -33,7 +33,7 @@ export default function EmployeeList() {
     );
   return (
     <div>
-      {employees?.map((employee: unknown) => (
+      {employees?.map((employee) => (
         <div
           className=" mt-2 w-fit rounded-md border-2 p-2  "
           key={employee.id}

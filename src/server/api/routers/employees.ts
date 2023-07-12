@@ -7,10 +7,15 @@ const resend = new Resend(process.env.RESEND_API);
 const employees = collection(db, "employees");
 export const employeesRouter = createTRPCRouter({
   getAll: publicProcedure.query(async () => {
+    type Data = {
+      name: string;
+      email: string;
+      type: string;
+    };
     const employeesSnapshot = await getDocs(employees);
     const employeeList = employeesSnapshot.docs.map((doc) => {
       const id = doc.id;
-      const data = doc.data();
+      const data = doc.data() as Data;
 
       return { id, ...data };
     });
