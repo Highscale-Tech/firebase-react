@@ -1,18 +1,30 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
-    previewFeatures = ["jsonProtocol"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  content   String   @db.VarChar(255)
+  authorId  String
+
+  @@index([authorId])
+}
+enum employeeType {
+    intern
+    dev
+    designer
+}
+model hsEmployee {
+    id      Int      @id @default(autoincrement())
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    name    String @db.VarChar(255)
+    email String @db.VarChar(255)
+    type String @db.VarChar(255)
 }
