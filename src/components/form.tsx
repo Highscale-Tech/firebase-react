@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { api } from "~/utils/api";
+import { Loader2 } from "lucide-react";
 
 export const FormSchema = z.object({
   name: z
@@ -45,6 +46,7 @@ export function NewEmployeeForm() {
       type: "dev",
     },
   });
+  const { isSubmitting } = form.formState;
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     await mutateAsync(data);
@@ -127,7 +129,12 @@ export function NewEmployeeForm() {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isSubmitting ? true : false}>
+          {isSubmitting ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : null}
+          Submit
+        </Button>
       </form>
     </Form>
   );

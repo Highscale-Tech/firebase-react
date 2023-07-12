@@ -6,7 +6,11 @@ const resend = new Resend(process.env.RESEND_API);
 
 export const employeesRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.hsEmployee.findMany({});
+    return ctx.prisma.hsEmployee.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
   }),
   form: publicProcedure.input(FormSchema).mutation(async ({ ctx, input }) => {
     const employee = await ctx.prisma.hsEmployee.create({
