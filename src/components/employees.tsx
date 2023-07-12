@@ -24,9 +24,9 @@ export default function EmployeeList() {
       </div>
     );
   }
-  if (!employees)
+  if (employees.length == 0)
     return (
-      <div className="border-2 border-gray-300 px-2 py-4">
+      <div className="w-fit rounded-md border-2 border-gray-300 px-2 py-4">
         There are no employees!
       </div>
     );
