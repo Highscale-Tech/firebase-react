@@ -24,9 +24,15 @@ export default function EmployeeList() {
       </div>
     );
   }
+  if (!employees)
+    return (
+      <div className="border-2 border-gray-300 px-2 py-4">
+        There are no employees!
+      </div>
+    );
   return (
     <div>
-      {employees?.map((employee) => (
+      {employees.map((employee) => (
         <div
           className=" mt-2 w-fit rounded-md border-2 p-2  "
           key={employee.id}
