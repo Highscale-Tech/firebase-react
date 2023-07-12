@@ -2,7 +2,6 @@ import Head from "next/head";
 import EmployeeList from "~/components/employees";
 import { NewEmployeeForm } from "~/components/form";
 import { Toaster } from "~/components/ui/toaster";
-import { api } from "~/utils/api";
 
 export default function Home() {
   return (
