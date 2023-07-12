@@ -1,15 +1,22 @@
-import { PrismaClient } from "@prisma/client";
+import { initializeApp } from "firebase/app";
 import { env } from "~/env.mjs";
+import { getFirestore } from "firebase/firestore/lite";
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
+const firebaseConfig = {
+  apiKey: env.FIREBASE_API,
+
+  authDomain: "email-automator-4641f.firebaseapp.com",
+
+  projectId: "email-automator-4641f",
+
+  storageBucket: "email-automator-4641f.appspot.com",
+
+  messagingSenderId: "638525177014",
+
+  appId: "1:638525177014:web:54c110e90a64426cb0ba17",
 };
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log:
-      env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
-  });
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+const app = initializeApp(firebaseConfig);
 
-if (env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+export const db = getFirestore(app);

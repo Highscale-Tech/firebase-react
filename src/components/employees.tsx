@@ -3,6 +3,7 @@ import { Skeleton } from "./ui/skeleton";
 
 export default function EmployeeList() {
   const { data: employees, isLoading } = api.employees.getAll.useQuery();
+  console.log(employees);
   if (isLoading) {
     return (
       <div className="space-y-4">
