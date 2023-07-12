@@ -22,7 +22,7 @@ export default function Home() {
           </p>
         </div>
         <NewEmployeeForm />
-        <h2 className="text-xl font-semibold">Employees</h2>
+        <h2 className="mt-12 text-2xl font-semibold">Employees List</h2>
         <EmployeeList />
       </main>
       <Toaster />

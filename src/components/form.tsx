@@ -69,7 +69,7 @@ export function NewEmployeeForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-fit space-y-2 rounded-md  bg-slate-50 p-4 "
+        className="w-fit space-y-2 rounded-md  bg-slate-100 p-4 "
       >
         <div className="flex gap-4">
           <FormField
