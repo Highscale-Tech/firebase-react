@@ -20,8 +20,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { api } from "~/utils/api";
 import { Loader2 } from "lucide-react";
+import { addDoc, collection } from "firebase/firestore/lite";
+import { db } from "~/server/db";
 
 export const FormSchema = z.object({
   name: z
@@ -37,7 +38,6 @@ export const FormSchema = z.object({
 });
 
 export function NewEmployeeForm() {
-  const { mutateAsync } = api.employees.form.useMutation();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -47,9 +47,8 @@ export function NewEmployeeForm() {
     },
   });
   const { isSubmitting } = form.formState;
-
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    await mutateAsync(data);
+    await addDoc(collection(db, "employees"), { ...data });
     toast({
       title: "You submitted the following values:",
       description: (

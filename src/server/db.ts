@@ -3,7 +3,7 @@ import { env } from "~/env.mjs";
 import { getFirestore } from "firebase/firestore/lite";
 
 const firebaseConfig = {
-  apiKey: env.FIREBASE_API,
+  apiKey: process.env.FIREBASE_API,
 
   authDomain: "email-automator-4641f.firebaseapp.com",
 

@@ -1,9 +1,41 @@
 import { api } from "~/utils/api";
 import { Skeleton } from "./ui/skeleton";
-
+import { useEffect, useState } from "react";
+import { db } from "~/server/db";
+import { collection, getDocs } from "firebase/firestore/lite";
+type Document = {
+  id: string;
+  name: string;
+  type: string;
+  email: string;
+};
 export default function EmployeeList() {
-  const { data: employees, isLoading } = api.employees.getAll.useQuery();
-  console.log(employees);
+  const [data, setData] = useState<Document[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    async function fetchData() {
+      const employeeCol = collection(db, "employees");
+      const employeeSnapshot = await getDocs(employeeCol);
+      const employeeList = employeeSnapshot.docs.map((doc) => {
+        const id = doc.id;
+        const data = doc.data() as Omit<Document, "id">;
+        return {
+          id,
+          name: data.name,
+          type: data.type,
+          email: data.email,
+        };
+      });
+      setData(employeeList);
+    }
+    fetchData()
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -25,15 +57,17 @@ export default function EmployeeList() {
       </div>
     );
   }
-  if (employees?.length == 0)
+  if (!data)
     return (
       <div className="w-fit rounded-md border-2 border-gray-300 px-2 py-4">
         There are no employees!
       </div>
     );
+
+  console.log(data);
   return (
     <div>
-      {employees?.map((employee) => (
+      {data?.map((employee) => (
         <div
           className=" mt-2 w-fit rounded-md border-2 p-2  "
           key={employee.id}
