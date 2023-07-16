@@ -1,4 +1,3 @@
-import { api } from "~/utils/api";
 import { Skeleton } from "./ui/skeleton";
 import { useEffect, useState } from "react";
 import { db } from "~/server/db";

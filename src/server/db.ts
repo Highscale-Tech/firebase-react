@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { env } from "~/env.mjs";
 import { getFirestore } from "firebase/firestore/lite";
 
 const firebaseConfig = {
