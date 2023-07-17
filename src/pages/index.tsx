@@ -2,6 +2,7 @@ import Head from "next/head";
 import EmployeeList from "~/components/employees";
 import { NewEmployeeForm } from "~/components/form";
 import { Toaster } from "~/components/ui/toaster";
+import { signInWithGoogle } from "~/server/db";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <h2 className="mt-12 text-2xl font-semibold">Employees List</h2>
         <EmployeeList />
       </main>
+      <button onClick={signInWithGoogle}>Sign In</button>
       <Toaster />
     </>
   );
